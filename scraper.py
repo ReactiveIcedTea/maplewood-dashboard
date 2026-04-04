@@ -1,5 +1,6 @@
 import os
 import time
+import json
 from dotenv import load_dotenv
 from playwright.sync_api import sync_playwright
 
@@ -17,7 +18,7 @@ CLASSES = [
 ]
 
 def click_and_scrape(page, class_name, date_text):
-    print(f"\nClicking {class_name} ({date_text})...")
+    print(f"\nScraping {class_name}...")
     page.evaluate(f"""() => {{
         let bottom = document.getElementsByName('bottom')[0];
         let bottomRight = bottom.contentDocument.getElementsByName('bottomRight')[0];
@@ -51,12 +52,19 @@ def click_and_scrape(page, class_name, date_text):
         return results;
     }""")
 
-    print(f"\n{class_name} Grades:")
-    print(f"{'Item':<45} {'Mark':<8} {'Date':<15} {'Weight':<8} {'Out of'}")
-    print("-" * 90)
+    grades = []
     for row in content:
-        if row[0] != "Categories / Item":
-            print(f"{row[0]:<45} {row[1]:<8} {row[2]:<15} {row[3]:<8} {row[4]}")
+        if row[0] == "Categories / Item":
+            continue
+        grades.append({
+            "item": row[0],
+            "mark": row[1],
+            "date": row[2],
+            "weight": row[3],
+            "out_of": row[4]
+        })
+
+    return grades
 
 def scrape_grades():
     with sync_playwright() as p:
@@ -70,9 +78,17 @@ def scrape_grades():
         page.click("[name='cmdLogin']")
         time.sleep(8)
 
-        for cls in CLASSES:
-            click_and_scrape(page, cls["name"], cls["date"])
+        all_grades = {}
 
-        page.pause()
+        for cls in CLASSES:
+            grades = click_and_scrape(page, cls["name"], cls["date"])
+            all_grades[cls["name"]] = grades
+            print(f"Saved {len(grades)} rows for {cls['name']}")
+
+        with open("grades.json", "w") as f:
+            json.dump(all_grades, f, indent=2)
+
+        print("\nGrades saved to grades.json!")
+        browser.close()
 
 scrape_grades()
