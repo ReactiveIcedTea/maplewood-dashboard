@@ -1,8 +1,8 @@
 {
-  "Mathematics": [
+  "MPM2DAb - Mathematics": [
     {
       "item": "Term",
-      "mark": "97.992",
+      "mark": "96.363",
       "date": "",
       "weight": "70",
       "out_of": "100"
@@ -43,6 +43,13 @@
       "out_of": "20"
     },
     {
+      "item": "Polynomials Quiz",
+      "mark": "57.5",
+      "date": "Apr 01, 2026",
+      "weight": "20",
+      "out_of": "64"
+    },
+    {
       "item": "Culminating Final",
       "mark": "",
       "date": "Feb 06, 2026",
@@ -50,7 +57,7 @@
       "out_of": "100"
     }
   ],
-  "Anthropology, Psychology & Sociology": [
+  "HSP3Ub - Introduction to Anthropology, Psychology, and Sociology": [
     {
       "item": "Terms",
       "mark": "71.236",
@@ -94,7 +101,7 @@
       "out_of": "24"
     }
   ],
-  "Hospitality and Tourism Technology": [
+  "TFJ2Oe - Hospitality and Tourism Technology": [
     {
       "item": "Hospitality and Tourism Fundamentals",
       "mark": "100",
@@ -166,7 +173,7 @@
       "out_of": "100"
     }
   ],
-  "Geographie": [
+  "CGC1WFa - Geographie": [
     {
       "item": "Unite 1: Introduction a la geographie",
       "mark": "99.911",

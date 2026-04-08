@@ -10,15 +10,30 @@ URL = os.getenv("MAPLEWOOD_URL")
 USERNAME = os.getenv("MAPLEWOOD_USER")
 PASSWORD = os.getenv("MAPLEWOOD_PASS")
 
-CLASSES = [
-    {"name": "Mathematics", "date": "Mar 20"},
-    {"name": "Anthropology, Psychology & Sociology", "date": "Apr 01"},
-    {"name": "Hospitality and Tourism Technology", "date": "Mar 26"},
-    {"name": "Geographie", "date": "Apr 02"},
-]
+def get_class_list(page):
+    print("Reading class list...")
+    rows = page.evaluate("""() => {
+        let bottom = document.getElementsByName('bottom')[0];
+        let bottomRight = bottom.contentDocument.getElementsByName('bottomRight')[0];
+        let doc = bottomRight.contentDocument;
+        let rows = doc.querySelectorAll('table tr');
+        let results = [];
+        for(let row of rows) {
+            let cells = row.querySelectorAll('td');
+            if(cells.length === 2) {
+                let name = cells[0].innerText.trim();
+                let date = cells[1].innerText.trim();
+                if(name && date && name !== 'Class') {
+                    results.push({name: name, date: date});
+                }
+            }
+        }
+        return results;
+    }""")
+    return rows
 
 def click_and_scrape(page, class_name, date_text):
-    print(f"\nScraping {class_name}...")
+    print(f"\nScraping {class_name} ({date_text})...")
     page.evaluate(f"""() => {{
         let bottom = document.getElementsByName('bottom')[0];
         let bottomRight = bottom.contentDocument.getElementsByName('bottomRight')[0];
@@ -78,9 +93,13 @@ def scrape_grades():
         page.click("[name='cmdLogin']")
         time.sleep(8)
 
-        all_grades = {}
+        classes = get_class_list(page)
+        print(f"Found {len(classes)} classes:")
+        for cls in classes:
+            print(f"  {cls['name']} → {cls['date']}")
 
-        for cls in CLASSES:
+        all_grades = {}
+        for cls in classes:
             grades = click_and_scrape(page, cls["name"], cls["date"])
             all_grades[cls["name"]] = grades
             print(f"Saved {len(grades)} rows for {cls['name']}")
