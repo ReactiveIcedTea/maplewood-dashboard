@@ -2,7 +2,7 @@
   "MPM2DAb - Mathematics": [
     {
       "item": "Term",
-      "mark": "96.363",
+      "mark": "94.203",
       "date": "",
       "weight": "70",
       "out_of": "100"
@@ -30,14 +30,14 @@
     },
     {
       "item": "Unit Test - Analytic Geometry",
-      "mark": "",
+      "mark": "19",
       "date": "Mar 27, 2026",
       "weight": "20",
       "out_of": "23"
     },
     {
       "item": "Unit Assignment - Take Home",
-      "mark": "",
+      "mark": "19",
       "date": "Mar 27, 2026",
       "weight": "20",
       "out_of": "20"
@@ -260,7 +260,7 @@
     },
     {
       "item": "Unite 3: Les catosrophes",
-      "mark": "93.333",
+      "mark": "96",
       "date": "",
       "weight": "10",
       "out_of": "100"
@@ -278,6 +278,13 @@
       "date": "Apr 01, 2026",
       "weight": "2",
       "out_of": "30"
+    },
+    {
+      "item": "Affiche: Que faire en cas de catastrophe?",
+      "mark": "35",
+      "date": "Apr 08, 2026",
+      "weight": "2",
+      "out_of": "35"
     }
   ]
 }
